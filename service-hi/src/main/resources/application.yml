@@ -1,11 +1,23 @@
 server:
   port: 8762
 
+
 spring:
   application:
     name: service-hi
+  kafka:
+    bootstrap-servers: localhopst:9092
+    consumer:
+      group-id: myGroup
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://peer1:8761/eureka/
+#      defaultZone: http://localhost:8761/eureka/
+

@@ -1,15 +1,50 @@
+#server:
+#  port: 8761
+#
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+#    registerWithEureka: false
+#    fetchRegistry: false
+#    serviceUrl:
+#      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#
+#spring:
+#  application:
+#    name: eurka-server
+
+---
+
 server:
   port: 8761
 
+spring:
+  profiles: peer1
 eureka:
   instance:
-    hostname: localhost
+    hostname: peer1
   client:
-    registerWithEureka: false
-    fetchRegistry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://peer2:8769/eureka/
+
+#java -jar eureka-server-0.0.1-SNAPSHOT.jar --spring.profiles.active=peer1/peer1
+
+---
 
 spring:
-  application:
-    name: eurka-server
+  profiles: peer2
+server:
+  port: 8769
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8761/eureka/
+
+#java -jar eureka-server-0.0.1-SNAPSHOT.jar - -spring.profiles.active=peer2
+
+
+
+
